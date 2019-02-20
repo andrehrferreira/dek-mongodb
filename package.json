@@ -1,0 +1,33 @@
+{
+    "name": "@dek/mongodb",
+    "version": "1.0.0",
+    "description": "MongoDB interface plugin for DEK",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha",
+        "dev": "babel-node index.js --presets env"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dekproject/mongodb.git"
+    },
+    "keywords": [
+        "dek",
+        "mongodb"
+    ],
+    "author": "Andre Ferreira <andre@vigiadepreco.com.br>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dekproject/mongodb/issues"
+    },
+    "homepage": "https://github.com/dekproject/mongodb#readme",
+    "dependencies": {
+        "mongodb": "^3.1.13"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "dotenv": "^6.2.0",
+        "mocha": "^6.0.0"
+    }
+}
