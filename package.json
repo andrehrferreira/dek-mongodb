@@ -2,10 +2,11 @@
     "name": "@dek/mongodb",
     "version": "1.0.1",
     "description": "MongoDB interface plugin for DEK",
-    "main": "index.js",
+    "main": "./build/index.js",
     "scripts": {
         "test": "mocha",
-        "dev": "babel-node index.js --presets env"
+        "sample": "babel-node sample --presets env",
+        "build": "babel src -s -D -d build --presets env"
     },
     "repository": {
         "type": "git",
