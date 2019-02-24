@@ -1,6 +1,6 @@
 {
     "name": "@dek/mongodb",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "MongoDB interface plugin for DEK",
     "main": "index.js",
     "scripts": {
@@ -16,12 +16,16 @@
         "mongodb"
     ],
     "author": "Andre Ferreira <andre@vigiadepreco.com.br>",
+    "contributors": [
+        "Eduardo Lima <eduardo@vigiadepreco.com.br>"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/dekproject/mongodb/issues"
     },
     "homepage": "https://github.com/dekproject/mongodb#readme",
     "dependencies": {
+        "@dekproject/scope": "^1.0.3",
         "mongodb": "^3.1.13"
     },
     "devDependencies": {

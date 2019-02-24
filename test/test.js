@@ -13,7 +13,6 @@ describe('MongoDB', () => {
             } finally {
                 assert.equal(false, false);
             }
-
         });
 
         it('Attempting to insert records.', () => {

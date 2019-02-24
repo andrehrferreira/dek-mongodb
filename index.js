@@ -1,10 +1,8 @@
-import { MongoClient } from 'mongodb'
-import dotenv from 'dotenv';
+import { $ } from "@dekproject/scope";
+import { MongoClient } from 'mongodb';
 
 export default async () => {
     try{
-        dotenv.config();
-
         let dbConfig = {};
         let env = process.env;
         let authUrl = null;
@@ -20,21 +18,21 @@ export default async () => {
 
         if(env.hasOwnProperty('MONGO_HOST') && !!env.MONGO_HOST)
             dbConfig['MONGO_HOST'] = env.MONGO_HOST
-        else{
+        else {
             configApproved = false
             console.log('[ MongoDB Plugin ] - There is no MONGO_HOST variable in the .env file.')
         }
 
         if(env.hasOwnProperty('MONGO_PORT') && !!env.MONGO_PORT)
             dbConfig['MONGO_PORT'] = env.MONGO_PORT
-        else{
+        else {
             configApproved = false
             console.log('[ MongoDB Plugin ] - There is no MONGO_PORT variable in the .env file.')
         }
 
         if(env.hasOwnProperty('MONGO_DB') && !!env.MONGO_DB)
             dbConfig['MONGO_DB'] = env.MONGO_DB
-        else{
+        else {
             configApproved = false
             console.log('[ MongoDB Plugin ] - There is no MONGO_DB variable in the .env file')
         }
@@ -47,25 +45,25 @@ export default async () => {
             console.log('[ MongoDB Plugin ] - Please correct the above errors before restarting the application.')
             process.exit(-1);
         }
-        else{
+        else {
             let connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`
 
             if(authUrl) connectionUrl =  `${authUrl}${connectionUrl}`
 
             let mongoClient = null, db = null
 
-            try{
-                mongoClient = await MongoClient.connect(`mongodb://${connectionUrl}`, { useNewUrlParser: true })
-                db = mongoClient.db(dbConfig['MONGO_DB'])
+            try {
+                let conn = await MongoClient.connect(`mongodb://${connectionUrl}`, { useNewUrlParser: true })
+                let db = await conn.db(dbConfig['MONGO_DB']);
 
                 if(process.env.PLUGIN_DEBUG == 'true')
-                    console.log(`[ MongoDB Plugin ] - MongoDB successfully signed`)
+                    console.log(`[ MongoDB Plugin ] - MongoDB successfully signed`);
 
-            } catch (e) {
-                throw e.message
+                $.set("mongodb", db);
             }
-
-            return { mongoClient, db }
+            catch (e) {
+                console.log(`[ MongoDB Plugin ] - ${e.message}`)
+            }
         }
     }
     catch (e) {

@@ -4,7 +4,7 @@ MongoDB interface plugin for DEK
 
 What does this plugin do?
 
-* Control configuration for connection to MongoDB in production development mode in a simplified way with dotenv
+* Control configuration for connection to MongoDB in production development mode in a simplified way with **dotenv**
 * Performs connection implementation along the lines ES6 being pre requirement to start the project
 
 ### Instalation
