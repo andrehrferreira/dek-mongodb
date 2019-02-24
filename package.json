@@ -1,6 +1,6 @@
 {
     "name": "@dek/mongodb",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "MongoDB interface plugin for DEK",
     "main": "./build/index.js",
     "scripts": {
@@ -26,13 +26,13 @@
     },
     "homepage": "https://github.com/dekproject/mongodb#readme",
     "dependencies": {
-        "@dekproject/scope": "^1.0.3",
+        "@dekproject/scope": "^1.0.4",
         "mongodb": "^3.1.13"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "dotenv": "^6.2.0",
-        "mocha": "^6.0.0"
+        "mocha": "^6.0.1"
     }
 }
