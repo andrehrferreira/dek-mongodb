@@ -4,8 +4,8 @@ import { MongoClient, ObjectID } from 'mongodb';
 export let mongoclient = MongoClient;
 export let objectid = ObjectID;
 
-export default async () => {
-    return new Promise(async (resolve, reject) => {
+export default () => {
+    return new Promise((resolve, reject) => {
         try{
             let dbConfig = {};
             let env = process.env;
@@ -28,14 +28,14 @@ export default async () => {
                     dbConfig['MONGO_HOST'] = env.MONGO_HOST
                 else {
                     configApproved = false
-                    console.log('[ MongoDB Plugin ] - There is no MONGO_HOST variable in the .env file.')
+                    console.log('[ MongoDB ] - There is no MONGO_HOST variable in the .env file.')
                 }
 
                 if(env.hasOwnProperty('MONGO_PORT') && !!env.MONGO_PORT)
                     dbConfig['MONGO_PORT'] = env.MONGO_PORT
                 else {
                     configApproved = false
-                    console.log('[ MongoDB Plugin ] - There is no MONGO_PORT variable in the .env file.')
+                    console.log('[ MongoDB ] - There is no MONGO_PORT variable in the .env file.')
                 }
             }
 
@@ -43,7 +43,7 @@ export default async () => {
                 dbConfig['MONGO_DB'] = env.MONGO_DB
             else {
                 configApproved = false
-                console.log('[ MongoDB Plugin ] - There is no MONGO_DB variable in the .env file')
+                console.log('[ MongoDB ] - There is no MONGO_DB variable in the .env file')
             }
 
             if((dbConfig.hasOwnProperty('MONGO_USER') && !!env.MONGO_USER) &&
@@ -51,7 +51,7 @@ export default async () => {
                authUrl = `${dbConfig.MONGO_USER}:${dbConfig.MONGO_PASSWORD}@`
 
             if(!configApproved){
-                console.log('[ MongoDB Plugin ] - Please correct the above errors before restarting the application.')
+                console.log('[ MongoDB ] - Please correct the above errors before restarting the application.')
                 process.exit(-1);
             }
             else {
@@ -63,23 +63,26 @@ export default async () => {
 
                     if(authUrl) connectionUrl =  `${authUrl}${connectionUrl}`;
 
-                    let conn = await MongoClient.connect(`mongodb://${connectionUrl}`, { useNewUrlParser: true })
-                    let db = await conn.db(dbConfig['MONGO_DB']);
+                    MongoClient.connect(`mongodb://${connectionUrl}`, {
+                        useNewUrlParser: true
+                    }, (err, conn) => {
+                        let db = conn.db(dbConfig['MONGO_DB']);
 
-                    if(process.env.PLUGIN_DEBUG == 'true')
-                        console.log(`[ MongoDB Plugin ] - MongoDB successfully signed`);
+                        if(process.env.DEBUG == 'true')
+                            console.log(`[ MongoDB ] - MongoDB successfully signed`);
 
-                    $.set("mongodb", db);
-                    resolve();
+                        $.set("mongodb", db);
+                        resolve();
+                    });
                 }
                 catch (e) {
-                    console.log(`[ MongoDB Plugin ] - ${e.message}`);
+                    console.log(`[ MongoDB ] - ${e.message}`);
                     reject();
                 }
             }
         }
         catch (e) {
-            console.log(`[ MongoDB Plugin ] - ${e.message}`);
+            console.log(`[ MongoDB ] - ${e.message}`);
             reject();
         }
     });

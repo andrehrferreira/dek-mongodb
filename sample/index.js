@@ -8,18 +8,18 @@ import { $, plugins } from "@dekproject/scope";
     dotenv.config({ path: "./sample/.env" });
     await plugins("");
 
-    var app = express();
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
+    $.set("app", express());
+    $.app.use(bodyParser.urlencoded({ extended: false }));
+    $.app.use(bodyParser.json());
 
-    app.get("/user", (req, res) => {
+    $.app.get("/user", (req, res) => {
         $.mongodb.collection("users").find({}).toArray((err, docs) => {
             if(err) res.status(500).send(err).end();
             else res.send(docs).end();
         });
     });
 
-    app.post("/user", (req, res) => {
+    $.app.post("/user", (req, res) => {
         $.mongodb.collection("users").insert(req.body, (err, result) => {
             if(err) res.status(500).send(err).end();
             else res.send(result).end();
@@ -28,7 +28,9 @@ import { $, plugins } from "@dekproject/scope";
 
     const PORT = process.env.PORT || 5555;
 
-    app.listen(PORT, () => {
-        console.log(`App listening on port ${PORT}!`);
+    $.wait("mongodb").then(() => {
+        $.app.listen(PORT, () => {
+            console.log(`App listening on port ${PORT}!`);
+        });
     });
 })();
