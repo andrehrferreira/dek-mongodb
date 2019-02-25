@@ -52,9 +52,9 @@ export default async () => {
         }
         else {
             if(dbConfig.hasOwnProperty('MONGO_PATH'))
-                let connectionUrl = `${dbConfig['MONGO_PATH']}`
+                var connectionUrl = `${dbConfig['MONGO_PATH']}`
             else
-                let connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`;
+                var connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`;
 
             if(authUrl) connectionUrl =  `${authUrl}${connectionUrl}`
 
