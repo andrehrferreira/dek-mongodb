@@ -1,5 +1,8 @@
 import { $ } from "@dekproject/scope";
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectID } from 'mongodb';
+
+export let mongoclient = MongoClient;
+export let objectid = ObjectID;
 
 export default async () => {
     try{
@@ -57,8 +60,6 @@ export default async () => {
                 var connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`;
 
             if(authUrl) connectionUrl =  `${authUrl}${connectionUrl}`
-
-            let mongoClient = null, db = null
 
             try {
                 let conn = await MongoClient.connect(`mongodb://${connectionUrl}`, { useNewUrlParser: true })
