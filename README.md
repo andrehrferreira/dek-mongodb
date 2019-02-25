@@ -19,7 +19,7 @@ $ dek install mongodb
 or
 
 ```bash
-$ npm i -g @dekproject/mongodb
+$ npm i @dekproject/mongodb @dekproject/scope
 $ nano .env
 ```
 
@@ -57,6 +57,10 @@ MONGO_DB=dek
 ## Usage
 
 Using direct
+
+```bash
+$ npm i @dekproject/scope
+```
 
 ```js
 import express from "express";

@@ -6,7 +6,7 @@ import { $, plugins } from "@dekproject/scope";
 
 (async () => {
     dotenv.config({ path: "./sample/.env" });
-    await plugins("./src");
+    await plugins("");
 
     var app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
