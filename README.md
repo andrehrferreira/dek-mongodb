@@ -63,18 +63,15 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 
-import { $ } from "@dekproject/scope";
-import mongodb from "../src/index.js";
+import { $, plugins } from "@dekproject/scope";
 
 (async () => {
     dotenv.config({ path: "./sample/.env" });
-    await mongodb();
+    await plugins("./src");
 
     var app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-
-    const PORT = process.env.PORT || 5555;
 
     app.get("/user", (req, res) => {
         $.mongodb.collection("users").find({}).toArray((err, docs) => {
@@ -90,11 +87,12 @@ import mongodb from "../src/index.js";
         });
     });
 
+    const PORT = process.env.PORT || 5555;
+
     app.listen(PORT, () => {
         console.log(`App listening on port ${PORT}!`);
     });
 })();
-
 ```
 
 Using in the standard DEK skeleton

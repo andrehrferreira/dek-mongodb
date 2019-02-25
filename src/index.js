@@ -16,18 +16,23 @@ export default async () => {
         if(env.hasOwnProperty('MONGO_PASSWORD') || !!env.MONGO_PASSWORD)
             dbConfig['MONGO_PASSWORD'] = env.MONGO_PASSWORD
 
-        if(env.hasOwnProperty('MONGO_HOST') && !!env.MONGO_HOST)
-            dbConfig['MONGO_HOST'] = env.MONGO_HOST
-        else {
-            configApproved = false
-            console.log('[ MongoDB Plugin ] - There is no MONGO_HOST variable in the .env file.')
+        if(env.hasOwnProperty('MONGO_PATH') || !!env.MONGO_PATH){
+            dbConfig['MONGO_PATH'] = env.MONGO_PATH
         }
+        else{
+            if(env.hasOwnProperty('MONGO_HOST') && !!env.MONGO_HOST)
+                dbConfig['MONGO_HOST'] = env.MONGO_HOST
+            else {
+                configApproved = false
+                console.log('[ MongoDB Plugin ] - There is no MONGO_HOST variable in the .env file.')
+            }
 
-        if(env.hasOwnProperty('MONGO_PORT') && !!env.MONGO_PORT)
-            dbConfig['MONGO_PORT'] = env.MONGO_PORT
-        else {
-            configApproved = false
-            console.log('[ MongoDB Plugin ] - There is no MONGO_PORT variable in the .env file.')
+            if(env.hasOwnProperty('MONGO_PORT') && !!env.MONGO_PORT)
+                dbConfig['MONGO_PORT'] = env.MONGO_PORT
+            else {
+                configApproved = false
+                console.log('[ MongoDB Plugin ] - There is no MONGO_PORT variable in the .env file.')
+            }
         }
 
         if(env.hasOwnProperty('MONGO_DB') && !!env.MONGO_DB)
@@ -46,7 +51,10 @@ export default async () => {
             process.exit(-1);
         }
         else {
-            let connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`
+            if(dbConfig.hasOwnProperty('MONGO_PATH'))
+                let connectionUrl = `${dbConfig['MONGO_PATH']}`
+            else
+                let connectionUrl = `${dbConfig['MONGO_HOST']}:${dbConfig['MONGO_PORT']}/${dbConfig['MONGO_DB']}`;
 
             if(authUrl) connectionUrl =  `${authUrl}${connectionUrl}`
 
