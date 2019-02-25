@@ -1,4 +1,4 @@
-# @dek/mongodb
+# @dekproject/mongodb
 
 MongoDB interface plugin for DEK
 

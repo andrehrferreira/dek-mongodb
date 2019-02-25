@@ -1,5 +1,5 @@
 {
-    "name": "@dek/mongodb",
+    "name": "@dekproject/mongodb",
     "version": "1.0.3",
     "description": "MongoDB interface plugin for DEK",
     "main": "./build/index.js",
