@@ -70,6 +70,7 @@ export default async () => {
                         console.log(`[ MongoDB Plugin ] - MongoDB successfully signed`);
 
                     $.set("mongodb", db);
+                    resolve();
                 }
                 catch (e) {
                     console.log(`[ MongoDB Plugin ] - ${e.message}`);
