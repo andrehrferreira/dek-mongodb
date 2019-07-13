@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 import { $, plugins } from "@dekproject/scope";
 
 (async () => {
-    dotenv.config({ path: "./sample/.env" });
-    await plugins("");
+    await dotenv.config();
+    await plugins("./build");
 
     $.set("app", express());
     $.app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,8 +29,8 @@ import { $, plugins } from "@dekproject/scope";
     const PORT = process.env.PORT || 5555;
 
     $.wait("mongodb").then(() => {
-        $.app.listen(PORT, () => {
-            console.log(`App listening on port ${PORT}!`);
-        });
+        $.app.listen(PORT, () => { console.log(`App listening on port ${PORT}!`); });
+    }).catch((err) => {
+        console.log(err)
     });
 })();

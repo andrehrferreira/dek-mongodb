@@ -12,14 +12,7 @@ What does this plugin do?
 To install the bootstrap we recommend using the CLI
 
 ```bash
-$ npm i -g @dekproject/cli
-$ dek install mongodb
-```
-
-or
-
-```bash
-$ npm i @dekproject/mongodb @dekproject/scope
+$ yarn add @dekproject/mongodb --save
 $ nano .env
 ```
 
@@ -42,63 +35,12 @@ MONGO_PATH=mongodb://mongo-01:27017,mongo-02:27017/dek?replicaSet=dek&readPrefer
 MONGO_DB=dek
 ```
 
-## Settings
-
-Add connection settings in .env
-
-```
-MONGO_USER=
-MONGO_PASSWORD=
-MONGO_HOST=localhost
-MONGO_PORT=27017
-MONGO_DB=dek
-```
-
 ## Usage
 
 Using direct
 
 ```bash
 $ npm i @dekproject/scope
-```
-
-```js
-import express from "express";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-
-import { $, plugins } from "@dekproject/scope";
-
-(async () => {
-    dotenv.config({ path: "./sample/.env" });
-    await plugins("");
-
-    $.set("app", express());
-    $.app.use(bodyParser.urlencoded({ extended: false }));
-    $.app.use(bodyParser.json());
-
-    $.app.get("/user", (req, res) => {
-        $.mongodb.collection("users").find({}).toArray((err, docs) => {
-            if(err) res.status(500).send(err).end();
-            else res.send(docs).end();
-        });
-    });
-
-    $.app.post("/user", (req, res) => {
-        $.mongodb.collection("users").insert(req.body, (err, result) => {
-            if(err) res.status(500).send(err).end();
-            else res.send(result).end();
-        });
-    });
-
-    const PORT = process.env.PORT || 5555;
-
-    $.wait("mongodb").then(() => {
-        $.app.listen(PORT, () => {
-            console.log(`App listening on port ${PORT}!`);
-        });
-    });
-})();
 ```
 
 Using in the standard DEK skeleton
